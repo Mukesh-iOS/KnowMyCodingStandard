@@ -48,11 +48,11 @@ extension NSDictionary
         self.navigationItem.setHidesBackButton(true, animated:false)
         self.navigationController?.navigationBar.backgroundColor = UIColor.black
         
-        let button = UIButton(type: UIButtonType.custom)
+        let button = UIButton(type: UIButton.ButtonType.custom)
         
         button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         
-        button.setImage(withImage, for: UIControlState.normal)
+        button.setImage(withImage, for: UIControl.State.normal)
         
         if isBackButton {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
@@ -71,7 +71,7 @@ extension NSDictionary
         self.navigationItem.setHidesBackButton(true, animated:false)
         self.navigationController?.navigationBar.backgroundColor = UIColor.black
         
-        let button = UIButton(type: UIButtonType.custom)
+        let button = UIButton(type: UIButton.ButtonType.custom)
         
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 25)
         
