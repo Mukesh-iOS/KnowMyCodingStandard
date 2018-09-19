@@ -25,11 +25,11 @@ class MYTListViewCell : UITableViewCell {
         
         let imageName : String = model.fleetType == "TAXI" ? "PrivateCar" : "Pooling"
         vehicle.image = UIImage.init(named: imageName)
-        vehicle.image = vehicle.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        vehicle.image = vehicle.image!.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         vehicle.tintColor = UIColor.darkGray
         
         headingArrow.transform = CGAffineTransform(rotationAngle: CGFloat(model.heading.degreesToRadians))
-        headingArrow.image = headingArrow.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        headingArrow.image = headingArrow.image!.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         headingArrow.tintColor = UIColor.darkGray
         
         vehicleID.text = String(format:"Vehicle Id - %d", model.id )
