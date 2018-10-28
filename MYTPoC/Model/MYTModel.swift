@@ -18,12 +18,12 @@ class CodableContainer: NSObject, Codable {
         case poiList
     }
     
-    @objc var poiList: [lists]?
+    @objc var poiList: [Lists]?
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: poiListResponseKey.self)
         
-        poiList = try! container.decode([lists]?.self, forKey: .poiList) ?? nil
+        poiList = try! container.decode([Lists]?.self, forKey: .poiList) ?? nil
     }
     
     func encode(to encoder: Encoder) throws {
@@ -33,7 +33,7 @@ class CodableContainer: NSObject, Codable {
     }
 }
 
-class lists: NSObject, Codable {
+class Lists: NSObject, Codable {
     
     private enum ListsKey: String, CodingKey {
         case id
@@ -45,7 +45,7 @@ class lists: NSObject, Codable {
     @objc var id: Int = 0
     @objc var heading: Double = 0
     @objc var fleetType: String?
-    @objc var coordinate: coordinatesObj?
+    @objc var coordinate: CoordinatesObj?
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ListsKey.self)
@@ -53,7 +53,7 @@ class lists: NSObject, Codable {
         id = try! container.decode(Int?.self, forKey: .id) ?? 0
         heading = try! container.decode(Double?.self, forKey: .heading) ?? 0
         fleetType = try? container.decode(String?.self, forKey: .fleetType) ?? ""
-        coordinate = (try! container.decode(coordinatesObj?.self, forKey: .coordinate))!
+        coordinate = (try! container.decode(CoordinatesObj?.self, forKey: .coordinate))!
     }
     
     func encode(to encoder: Encoder) throws {
@@ -66,7 +66,7 @@ class lists: NSObject, Codable {
     }
 }
 
-class coordinatesObj: NSObject, Codable {
+class CoordinatesObj: NSObject, Codable {
     
     private enum CoordinatesKey: String, CodingKey {
         case latitude
@@ -95,8 +95,7 @@ class coordinatesObj: NSObject, Codable {
     
     // MARK: Get List Details
 
-     @objc func getListDetailsFromRest(parameter : NSDictionary, withSuccess successBlock: @escaping MYTListDetailMOBlockWithObject, withFail failBlock: @escaping MYTListDetailMOBlockWithError)
-    {
+     @objc func getListDetailsFromRest(parameter : NSDictionary, withSuccess successBlock: @escaping MYTListDetailMOBlockWithObject, withFail failBlock: @escaping MYTListDetailMOBlockWithError) {
         let listDetailURL = URL.init(string: RequestURLHelper.baseURL)!
         
         SVProgressHUD.setDefaultMaskType(.clear)

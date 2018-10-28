@@ -17,7 +17,7 @@ class MYTWebManager: NSObject, URLSessionDelegate {
     
     //MARK: - Singleton
     
-    static let sharedManager : MYTWebManager = {
+    static let sharedManager: MYTWebManager = {
         let instance = MYTWebManager()
         return instance
     }()
@@ -61,8 +61,7 @@ class MYTWebManager: NSObject, URLSessionDelegate {
     func getDataBySending(_ parameters : NSDictionary?, toURL url : URL, withSuccess successBlock: @escaping MYTWebManagerReturnBlockWithObject, withFail failBlock: @escaping MYTWebManagerReturnBlockWithFail, withError errorBlock: @escaping MYTWebManagerReturnBlockWithError) -> Void {
         
         
-        if MYTWebManager.isNetworkAvailable() == false
-        {
+        if MYTWebManager.isNetworkAvailable() == false {
             failBlock(nil,"Network is not available")
             return;
         }
@@ -106,39 +105,30 @@ class MYTWebManager: NSObject, URLSessionDelegate {
             
             debugLog("\(String(describing: statusCode))")
             
-            switch (statusCode)
-            {
+            switch (statusCode) {
             case StatusCode.OK?:
                 
-                if data != nil
-                {
-                    if let dictionary = NSDictionary().dictionaryWithData(data)
-                    {
+                if data != nil {
+                    if let dictionary = NSDictionary().dictionaryWithData(data) {
                         successBlock(dictionary, nil)
                     }
-                    else
-                    {
+                    else {
                         successBlock(nil, "Success")
                     }
                 }
                 
                 break
-                
             default:
                 
-                if data != nil
-                {
-                    if let dictionary = NSDictionary().dictionaryWithData(data)
-                    {
-                        if let message = dictionary.object(forKey: "message")
-                        {
+                if data != nil {
+                    if let dictionary = NSDictionary().dictionaryWithData(data) {
+                        if let message = dictionary.object(forKey: "message") {
                             failBlock(nil, message as? String)
                         }
-                        else
-                        {
+                        else {
                             failBlock(nil, "Operation failed")
                         }
-                    }else{
+                    } else {
                         failBlock(nil, "Operation failed")
                     }
                 }
@@ -149,8 +139,7 @@ class MYTWebManager: NSObject, URLSessionDelegate {
                 break
             }
         }
-        else
-        {
+        else {
             debugLog((error?.localizedDescription)!)
             errorBlock(error as NSError?, "")
         }

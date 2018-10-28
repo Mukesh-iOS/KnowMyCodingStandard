@@ -10,7 +10,11 @@ import UIKit
 
 protocol ListDetailNotification: class {
     
-     func updateData()
+    func updateData()
+}
+
+enum TableSection: Int {
+    case taxi = 0, pooling, total
 }
 
 class MYTListScreenViewModel: NSObject, UITableViewDataSource, UITableViewDelegate{
@@ -18,13 +22,9 @@ class MYTListScreenViewModel: NSObject, UITableViewDataSource, UITableViewDelega
     weak var delegate: ListDetailNotification?
     var model: CodableContainer?
     
-    enum TableSection: Int {
-        case taxi = 0, pooling, total
-    }
-    
     let SectionHeaderHeight: CGFloat = 30
     
-    var data = [TableSection: [lists]]()
+    var data = [TableSection: [Lists]]()
     
     // MARK: Grouping Types
     
@@ -36,12 +36,16 @@ class MYTListScreenViewModel: NSObject, UITableViewDataSource, UITableViewDelega
     
     // MARK: Getting List details
     
-    func getScheduleDetailsFromServer()
-    {
+    func getScheduleDetailsFromServer() {
         let params =  ["p1Lat": 53.694865, "p1Lon": 9.757589, "p2Lat": 53.394655, "p2Lon": 10.099891]
         
         MYTModel().getListDetailsFromRest(parameter: params as NSDictionary, withSuccess: { (response, userInfo) in
-            self.model = response!
+            
+            guard let response = response else {
+                
+                return
+            }
+            self.model = response
             self.delegate?.updateData()
         }) { (error, userInfo) in
             print(error?.localizedDescription as Any)
@@ -81,6 +85,7 @@ class MYTListScreenViewModel: NSObject, UITableViewDataSource, UITableViewDelega
         let label = UILabel(frame: CGRect(x: 15, y: 0, width: tableView.bounds.width - 30, height: SectionHeaderHeight))
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = UIColor.black
+        
         if let tableSection = TableSection(rawValue: section) {
             switch tableSection {
             case .taxi:
@@ -91,17 +96,20 @@ class MYTListScreenViewModel: NSObject, UITableViewDataSource, UITableViewDelega
                 label.text = ""
             }
         }
+        
         view.addSubview(label)
         return view
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! MYTListViewCell
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as? MYTListViewCell
 
-        if let tableSection = TableSection(rawValue: indexPath.section), let list = data[tableSection]?[indexPath.row] {
+        if let tableSection = TableSection(rawValue: indexPath.section), let list = data[tableSection]?[indexPath.row], let cell = cell {
 
             cell.loadData(list)
+            return cell
         }
-        return cell
+        return UITableViewCell()
     }
 }

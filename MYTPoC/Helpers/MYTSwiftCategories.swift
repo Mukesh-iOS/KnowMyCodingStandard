@@ -15,32 +15,26 @@ extension FloatingPoint {
     var radiansToDegrees: Self { return self * 180 / .pi }
 }
 
-extension NSDictionary
-{
+extension NSDictionary {
     func dictionaryWithData(_ receiveData : Data?) -> NSDictionary? {
         
         if receiveData == nil {
             return nil
         }
-        
-        do{
-            
+        do {
             let dictionary = try JSONSerialization.jsonObject(with: receiveData!, options: JSONSerialization.ReadingOptions.allowFragments)
             
             return dictionary as? NSDictionary
-            
         }
-        catch let error as NSError
-        {
+        catch let error as NSError {
             print(error.localizedDescription)
             return nil
         }
-        
     }
 }
 
-@objc extension UIViewController
-{
+@objc extension UIViewController {
+    
     func addNavigationButton(withImage : UIImage, isBackButton : Bool) -> UIButton {
         
         self.navigationController?.isNavigationBarHidden = false
@@ -56,8 +50,7 @@ extension NSDictionary
         
         if isBackButton {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
-        }else
-        {
+        }else {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         }
     
@@ -79,11 +72,9 @@ extension NSDictionary
         
         if isBackButton {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
-        }else
-        {
+        } else {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         }
-        
         return button
     }
 }

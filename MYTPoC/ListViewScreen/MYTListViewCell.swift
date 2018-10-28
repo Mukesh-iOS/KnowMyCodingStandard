@@ -21,7 +21,7 @@ class MYTListViewCell : UITableViewCell {
         vehicle.clipsToBounds = true
     }
     
-    func loadData(_ model : lists){
+    func loadData(_ model : Lists){
         
         let imageName : String = model.fleetType == "TAXI" ? "PrivateCar" : "Pooling"
         vehicle.image = UIImage.init(named: imageName)
@@ -32,7 +32,7 @@ class MYTListViewCell : UITableViewCell {
         headingArrow.image = headingArrow.image!.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         headingArrow.tintColor = UIColor.darkGray
         
-        vehicleID.text = String(format:"Vehicle Id - %d", model.id )
+        vehicleID.text = String(format:"Vehicle Id - %d", model.id)
         
         vehicleLatitude.text = "Latitude    : \(model.coordinate?.latitude ?? 0)"
         vehicleLongitude.text = "Longitude : \(model.coordinate?.longitude ?? 0)"

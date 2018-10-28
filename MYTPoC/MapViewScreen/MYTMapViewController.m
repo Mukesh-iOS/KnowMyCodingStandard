@@ -18,15 +18,14 @@
 @implementation MYTMapViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
     
+    [super viewDidLoad];
     [self viewSetup];
 }
 
 // MARK: Settingup Screen
 
-- (void) viewSetup
-{
+- (void) viewSetup {
     self.navigationItem.title = @"Map View";
 
     UIButton *backBtn = [self addNavigationButtonWithImage:[UIImage imageNamed:@"BackNavigation"] isBackButton:YES];
@@ -46,8 +45,7 @@
 
 // MARK: Showing Map Position For First Time
 
-- (void)showCamera:(CLLocation *)location
-{
+- (void)showCamera:(CLLocation *)location {
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude
                                                             longitude:location.coordinate.longitude
                                                                  zoom:13];
@@ -64,8 +62,7 @@
 
 // MARK: Updating Markers When Bounds Change
 
-- (void)updateMarkers
-{
+- (void)updateMarkers {
     // get current map view bound
     GMSVisibleRegion visibleRegion = [self.viewMap.projection visibleRegion];
     GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc]initWithRegion:visibleRegion];
@@ -75,8 +72,7 @@
 
 // MARK: Plotting Markers
 
-- (void)plotMarkers: (CodableContainer *) response
-{
+- (void)plotMarkers: (CodableContainer *) response {
     
     [self.viewMap clear];
     
@@ -87,7 +83,7 @@
     
     self.mapScreenVM.isDragged = NO;
     
-    for (lists *list in response.poiList) {
+    for (Lists *list in response.poiList) {
         CLLocationCoordinate2D position = CLLocationCoordinate2DMake(list.coordinate.latitude, list.coordinate.longitude);
         
         GMSMarker *marker = [GMSMarker markerWithPosition:position];
@@ -99,13 +95,11 @@
 
 // MARK: Helper Methods
 
-- (void) popScreen
-{
+- (void) popScreen {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)showAlert
-{
+- (void)showAlert {
     UIAlertController *alertCont =[UIAlertController alertControllerWithTitle:@"Location Service Disabled" message:@"To re-enable, please go to Settings and turn on Location Service for this app." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault handler:nil];
     [alertCont addAction:ok];
