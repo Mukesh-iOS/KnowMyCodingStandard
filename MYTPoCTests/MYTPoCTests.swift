@@ -37,8 +37,7 @@ class MYTPoCTests: XCTestCase {
             exception.fulfill()
             XCTAssertNotNil(response, "Response is nil for the requested URL")
          
-            do
-            {
+            do {
                 let decodedJson = try JSONSerialization.data(withJSONObject: response!, options: .prettyPrinted)
                 
                 XCTAssertNotNil(decodedJson, "Json value is nil")
@@ -49,8 +48,7 @@ class MYTPoCTests: XCTestCase {
                 XCTAssertNotNil(listResponse, "Unexpected data type or missing values for the requested URL")
 
             }
-            catch
-            {
+            catch {
                 XCTAssertNil(error, "\(error.localizedDescription)")
             }
         }, withFail: { (error, userInfo) in

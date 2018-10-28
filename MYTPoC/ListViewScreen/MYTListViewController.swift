@@ -15,15 +15,14 @@ class MYTListViewController: UIViewController, ListDetailNotification {
     @IBOutlet var listTableView: UITableView!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+        super.viewDidLoad()
         viewSetup()
     }
     
     // MARK: Initial Setup
     
-    func viewSetup()
-    {
+    private func viewSetup() {
         listScreenVM = MYTListScreenViewModel()
         listScreenVM?.delegate = self
         
@@ -51,13 +50,11 @@ class MYTListViewController: UIViewController, ListDetailNotification {
     
     // MARK: Helper Methods
     
-    @objc func popToBackScreen()
-    {
+    @objc func popToBackScreen() {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    @objc func pushToMapScreen()
-    {
+    @objc func pushToMapScreen() {
         self.performSegue(withIdentifier: "MapViewSegue", sender: nil)
     }
     

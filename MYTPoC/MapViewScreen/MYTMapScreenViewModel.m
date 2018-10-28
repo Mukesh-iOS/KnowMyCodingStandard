@@ -28,8 +28,7 @@
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
-{    
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *newLocation = locations.lastObject;
     
     NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
@@ -42,16 +41,14 @@
     double distance = [loc1 distanceFromLocation:loc2];
     self.currentLocation = newLocation;
     
-    if(distance > 20)
-    {
+    if(distance > 20) {
         [self.customDelegate showCamera:self.currentLocation];
     }
 }
 
 #pragma mark - Helper Methods
 
-- (void)initiateLocation
-{
+- (void)initiateLocation {
     self.currentLocationManager = [CLLocationManager new];
     self.currentLocationManager.delegate = self;
     
@@ -63,8 +60,7 @@
     [self.currentLocationManager startUpdatingLocation];
 }
 
-- (void)getVehicleDetails:(GMSCoordinateBounds *)bounds
-{
+- (void)getVehicleDetails:(GMSCoordinateBounds *)bounds {
     CLLocationCoordinate2D northEast = bounds.northEast;
     CLLocationCoordinate2D northWest = CLLocationCoordinate2DMake(bounds.northEast.latitude, bounds.southWest.longitude);
     CLLocationCoordinate2D southEast = CLLocationCoordinate2DMake(bounds.southWest.latitude, bounds.northEast.longitude);
@@ -93,14 +89,12 @@
 
 #pragma mark - MapView Delegate
 
-- (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
-{
+- (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
     self.isDragged = NO;
     return NO;
 }
 
--(void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position
-{
+-(void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
     if (self.isDragged) {
         [self.customDelegate updateMarkers];
     }
